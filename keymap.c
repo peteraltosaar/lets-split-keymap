@@ -15,6 +15,7 @@ extern keymap_config_t keymap_config;
 #define _INTJ 6
 #define _MODS 7
 #define _DIVVY 8
+#define _SMALLTALK 9
 #define _ADJUST 16
 
 // IntelliJ Shortcuts
@@ -98,6 +99,14 @@ extern keymap_config_t keymap_config;
 #define BOTHALF LGUI(LSFT(LCTL(KC_B)))
 #define BOTRGHT LGUI(LSFT(LCTL(KC_N)))
 
+// SmallTalk Shortcuts
+#define CALLERS LSFT(KC_F12)
+#define CLASS LCTL(LSFT(KC_L))
+#define IMPLS LSFT(KC_F11)
+#define METHOD LCTL(LSFT(KC_M))
+#define NEWVIEW LCTL(LSFT(KC_B))
+
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -119,6 +128,7 @@ enum custom_keycodes {
   TODOIST,
   UNANET,
   VMWARE,
+  CLSVIEW
 };
 
 // Fillers to make layering more clear
@@ -126,10 +136,11 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 
 #define ARROW MO(_ARROW)
-#define INTJ MO(_INTJ)
+#define INTJ LT(MO(_INTJ), KC_F4)
 #define MODS MO(_MODS)
 #define ESCAPE LT(ARROW, KC_ESC)
 #define D_DIVVY LT(MO(_DIVVY), KC_D)
+#define S_SMLTK LT(MO(_SMALLTALK), KC_S)
 #define MODKEYS LT(MODS, KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -148,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT( \
      KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC, \
-     ESCAPE,    KC_A,    KC_S, D_DIVVY,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, \
+     ESCAPE,    KC_A, S_SMLTK, D_DIVVY,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, \
     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT, \
        INTJ, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,        MODKEYS,   RAISE, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT  \
 ),
@@ -279,6 +290,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,        _______, LFTHALF, FULLSCR, RGTHALF, _______, _______, \
     _______, _______, _______, _______, _______, _______,        _______, BOTLEFT, BOTHALF, BOTRGHT, _______, _______, \
     _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+),
+
+/* SmallTalk
+ * ,-----------------------------------------------------.      ,-----------------------------------------------------.
+ * |        |        |        |        |        |        |      |        |        |        |OpenView|        |        |
+ * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |        |        |        |ClosView|        |        |      |        |        |        |FindClas|        |        |
+ * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |        |        |        |        |        |        |      |        |FindMeth|        |        |        |        |
+ * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |        |        |        |        |        |        |      |        |        |        |        |        |        |
+ * `-----------------------------------------------------'      `-----------------------------------------------------'
+ */
+
+[_SMALLTALK] =  LAYOUT( \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, NEWVIEW, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, CLSVIEW, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX,   CLASS, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX,  METHOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
 )
 
 };
@@ -414,6 +444,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("vmware" SS_TAP(X_ENTER));
       }
           return false;
+    case CLSVIEW:
+        if (record->event.pressed) {
+          SEND_STRING(SS_TAP(X_F10));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_RIGHT));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_RIGHT));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_RIGHT));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_DOWN));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_DOWN));
+          _delay_ms(100);
+          SEND_STRING(SS_TAP(X_ENTER));
+        }
+        return false;
   }
   return true;
 }
