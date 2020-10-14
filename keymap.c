@@ -50,6 +50,10 @@ extern keymap_config_t keymap_config;
 #define NXTCHNG LCTL(LALT(LSFT(KC_DOWN)))
 #define EXT_VAR LCTL(LALT(KC_V))
 #define ACEJUMP LCTL(LALT(KC_SCLN))
+#define EXPLEFT LCTL(LSFT(KC_LEFT))
+#define EXPDOWN LCTL(LSFT(KC_DOWN))
+#define EXP_UP LCTL(LSFT(KC_UP))
+#define EXPRGHT LCTL(LSFT(KC_RGHT))
 
 // MacOS Navigation Shortcuts
 #define ALTBSPC LALT(KC_BSPC)
@@ -245,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
  * |        | ReRun  | Run It | Create |ExtctVar|More Git|      |  File  |  Menu  | Font-  | Font+  |  Info  |        |
  * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
+ * |        |        |        |        |        |        |      |        |        |Exp Left|Exp Down| Exp Up |ExpRight|
  * `-----------------------------------------------------'      `-----------------------------------------------------'
  */
 
@@ -253,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,   CLOSE, _______,     END, REFACTR, GO2TEST,        _______,  USAGES, PREVMTD, OUTLINE, _______,      PW, \
     HIDWINS, RUNTGTS,  SYMBOL,   DEBUG,    FIND,     GIT,        HIERARC,    BACK, NEXTMTD, FORWARD, FONTRES, _______, \
     _______,   RERUN, EXECUTE,  CREATE, EXT_VAR, MOREGIT,        FNDFILE,    MENU, FONT_DN, FONT_UP,    INFO, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+    _______, _______, _______, _______, _______, _______,        _______, _______, EXPLEFT, EXPDOWN,  EXP_UP, EXPRGHT  \
 ),
 
 /* Mods
