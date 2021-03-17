@@ -14,8 +14,20 @@ extern keymap_config_t keymap_config;
 #define _ARROW 5
 #define _INTJ 6
 #define _MODS 7
-#define _DIVVY 8
+#define _APPS 8
+#define _TODOIST 9
 #define _ADJUST 16
+
+#define ARROW MO(_ARROW)
+#define MODS MO(_MODS)
+
+#define ESCAPE LT(ARROW, KC_ESC)
+#define INTJ LT(MO(_INTJ), KC_F4)
+#define MODKEYS LT(MODS, KC_ENT)
+#define TAB_ADJ LT(MO(_APPS), KC_TAB)
+#define TODO MO(_TODOIST)
+
+#define ADDTODO LGUI(LCTL(KC_A))
 
 // IntelliJ Shortcuts
 #define FNDFILE LSFT(LCTL(KC_N))
@@ -49,10 +61,17 @@ extern keymap_config_t keymap_config;
 #define NXTCHNG LCTL(LALT(LSFT(KC_DOWN)))
 #define EXT_VAR LCTL(LALT(KC_V))
 #define ACEJUMP LCTL(LALT(KC_SCLN))
-#define EXPLEFT LCTL(LSFT(KC_LEFT))
-#define EXPDOWN LCTL(LSFT(KC_DOWN))
-#define EXP_UP LCTL(LSFT(KC_UP))
-#define EXPRGHT LCTL(LSFT(KC_RGHT))
+#define MTWLEFT LCTL(LSFT(KC_LEFT))
+#define MTWDOWN LCTL(LSFT(KC_DOWN))
+#define MTW_UP LCTL(LSFT(KC_UP))
+#define MTWRGHT LCTL(LSFT(KC_RGHT))
+
+// MacOS Shortcuts
+#define ALFRED LALT(KC_SPACE)
+#define ZOOMIN LGUI(KC_PLUS)
+#define ZOOMOUT LGUI(KC_MINS)
+#define BSPCWRD LALT(KC_BSPC)
+#define DELWORD LALT(KC_DEL)
 
 // MacOS Navigation Shortcuts
 #define ALTBSPC LALT(KC_BSPC)
@@ -70,16 +89,16 @@ extern keymap_config_t keymap_config;
 #define ALT_8 LALT(KC_8)
 #define ALT_9 LALT(KC_9)
 #define ALT_0 LALT(KC_0)
-#define CTL_1 LCTL(LALT(KC_1))
-#define CTL_2 LCTL(LALT(KC_2))
-#define CTL_3 LCTL(LALT(KC_3))
-#define CTL_4 LCTL(LALT(KC_4))
-#define CTL_5 LCTL(LALT(KC_5))
-#define CTL_6 LCTL(LALT(KC_6))
-#define CTL_7 LCTL(LALT(KC_7))
-#define CTL_8 LCTL(LALT(KC_8))
-#define CTL_9 LCTL(LALT(KC_9))
-#define CTL_0 LCTL(LALT(KC_0))
+#define CTL_1 LCTL(KC_1)
+#define CTL_2 LCTL(KC_2)
+#define CTL_3 LCTL(KC_3)
+#define CTL_4 LCTL(KC_4)
+#define CTL_5 LCTL(KC_5)
+#define CTL_6 LCTL(KC_6)
+#define CTL_7 LCTL(KC_7)
+#define CTL_8 LCTL(KC_8)
+#define CTL_9 LCTL(KC_9)
+#define CTL_0 LCTL(KC_0)
 #define GUI_1 LGUI(KC_1)
 #define GUI_2 LGUI(KC_2)
 #define GUI_3 LGUI(KC_3)
@@ -102,147 +121,166 @@ extern keymap_config_t keymap_config;
 #define BOTHALF LGUI(LSFT(LCTL(KC_B)))
 #define BOTRGHT LGUI(LSFT(LCTL(KC_N)))
 
-// SmallTalk Shortcuts
-#define CALLERS LSFT(KC_F12)
-#define CLASS LCTL(LSFT(KC_L))
-#define IMPLS LSFT(KC_F11)
-#define METHOD LCTL(LSFT(KC_M))
-#define NEWVIEW LCTL(LSFT(KC_B))
-
-
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     LOWER,
     RAISE,
     ADJUST,
-    PW,
-    MODS,
-    DELMAIL,
-    ARCMAIL,
-    CALENDR,
-    CHROME,
-    FIREFOX,
-    INTELIJ,
-    ITERM,
-    MAIL,
-    ONENOTE,
-    SLACK,
+    STRING1,
+    STRING2,
+    DEL_EML,
+    ARC_EML,
+    // App shortcuts
+    BRAVE,
+    DISCORD,
+    FINDER,
+    INTELLIJ,
+    MESSAGES,
+    NOTION,
+    POCKET,
+    SIGNAL,
     SPOTIFY,
+    TERMINAL,
     TODOIST,
-    UNANET,
-    VMWARE,
-    CLSVIEW
+    VIVALDI,
+    // Todoist shortcuts
+    T15MINS,
+    T2HRS,
+    T30MINS,
+    T4HRS,
+    T5MINS,
+    T60MINS,
+    TODAY,
+    TOMORROW,
+    WEEKEND,
+    NEXTWEEK,
+    P1,
+    P2,
+    P3,
+    P4,
+    RESPOND
 };
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define ARROW MO(_ARROW)
-#define INTJ LT(MO(_INTJ), KC_F4)
-#define MODS MO(_MODS)
-#define ESCAPE LT(ARROW, KC_ESC)
-#define D_DIVVY LT(MO(_DIVVY), KC_D)
-#define MODKEYS LT(MODS, KC_DEL)
-
 // @formatter:off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |   Tab   |    Q    |    W    |    E    |    R    |    T    |   |    Y    |    U    |    I    |    O    |    P    |   Bksp  |
+ * |   Tab   |    Q    |    W    |    E    |    R    |    T    |   |    Y    |    U    |    I    |    O    |    P    |  Bksp   |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |   Esc   |    A    |    S    |    D    |    F    |    G    |   |    H    |    J    |    K    |    L    |    ;    |    "    |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |  Shift  |    Z    |    X    |    C    |    V    |    B    |   |    N    |    M    |    ,    |    .    |    /    |  Enter  |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * | IntelliJ|   Ctrl  |   Alt   |   GUI   |  Lower  |  Space  |   |   Mods  |  Raise  |   Left  |   Down  |    Up   |  Right  |
+ * |IntelliJ |  Ctrl   |   Alt   |   GUI   |  Lower  |  Space  |   |Mods/Entr|  Raise  | Alfred  |  Down   |   Up    |  Right  |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 
 [_QWERTY] = LAYOUT( \
-      KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC, \
+     TAB_ADJ,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC, \
       ESCAPE,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,         KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT, \
      KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,         KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,   KC_ENT, \
-        INTJ,  KC_LCTL,  KC_LALT,  KC_LGUI,    LOWER,   KC_SPC,      MODKEYS,    RAISE,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT  \
+        INTJ,  KC_LCTL,  KC_LALT,  KC_LGUI,    LOWER,   KC_SPC,      MODKEYS,    RAISE,   ALFRED,  KC_DOWN,    KC_UP,     TODO  \
 ),
 
 /* Lower
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
  * |    ~    |    !    |    @    |    #    |    $    |    %    |   |     ^   |    &    |    *    |    (    |    )    |   Del   |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |   Del   |         |         |         |         |         |   |         |    _    |    +    |    {    |    }    |    |    |
+ * |         |         |         |         |         |         |   |         |    _    |    +    |    {    |    }    |    |    |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |         |         |         |         |   Play  |
+ * |         |         |         |         |         |         |   |         |         |         |         |         |  Play   |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |  Reset  |         |         |         |         |         |   |         |         | PrvTrack| VolumeDn| VolumeUp| NxtTrack|
+ * |  Reset  |         |         |         |         |         |   |         |         |PrevTrack|  Vol-   |  Vol+   |NextTrack|
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_LOWER] = LAYOUT( \
      KC_TILD,  KC_EXLM,    KC_AT,  KC_HASH,   KC_DLR,  KC_PERC,      KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,   KC_DEL, \
-      KC_DEL,  _______,  _______,  _______,  _______,  _______,      _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE, \
      _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  KC_MPLY, \
        RESET,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  KC_MPRV,  KC_VOLD,  KC_VOLU,  KC_MNXT  \
 ),
 
 /* Raise
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |    `    |    1    |    2    |    3    |    4    |    5    |   |    6    |    7    |    8    |    9    |    0    |   Del   |
+ * |    `    |    1    |    2    |    3    |    4    |    5    |   |    6    |    7    |    8    |    9    |    0    |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |   Del   |         |         |         |         |         |   |         |    -    |    =    |    [    |    ]    |   \     |
+ * |         |   F1    |   F2    |   F3    |   F4    |   F5    |   |   F6    |    -    |    =    |    [    |    ]    |   \     |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |         |   F7    |   F8    |   F9    |   F10   |   F11   |   |   F12   |         |         |  Pg Up  |  Pg Dn  |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |         |         |         |         |         |         |   |         |         |         |         |         |  Reset  |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_RAISE] = LAYOUT( \
-      KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,   KC_DEL, \
-      KC_DEL,  _______,  _______,  _______,  _______,  _______,      _______,  KC_MINS,   KC_EQL,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+      KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  _______, \
+     _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,        KC_F6,  KC_MINS,   KC_EQL,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
+     _______,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,       KC_F12,  _______,  _______,  KC_PGUP,  KC_PGDN,  _______, \
      _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,    RESET  \
 ),
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |         |  Reset  |         |   Mail  |         | Todoist |   |  iTerm  |  Unanet | IntelliJ| OneNote |         |   Del   |
+ * |         |         |         |         |         |         |   |         |   <^    |   ^^    |   ^>    |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |  Slack  |         | Firefox |  Chrome |   |         |         |         |         |         |         |
+ * |         |         |         |         |         |         |   |         |   <<    |FulScreen|   >>    |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         | Calendar|  VMWare |         |   |         | Spotify |         |         |         |         |
+ * |         |         |         |         |         |         |   |         |   <v    |   vv    |   v>    |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |         |         |         |         |         |         |   |         |         |         |         |         |         |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT( \
-     _______,    RESET,  _______,     MAIL,  _______,  TODOIST,        ITERM,   UNANET,  INTELIJ,  ONENOTE,  _______,   KC_DEL, \
-     _______,  _______,    SLACK,  _______,  FIREFOX,   CHROME,      _______,  _______,  _______,  _______,  _______,  _______, \
-     _______,  _______,  _______,  CALENDR,   VMWARE,  _______,      _______,  SPOTIFY,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  TOPLEFT,  TOPHALF,  TOPRGHT,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  LFTHALF,  FULLSCR,  RGTHALF,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  BOTLEFT,  BOTHALF,  BOTRGHT,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
+),
+
+/* App Shortcuts
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |         |         |         |         | Todoist |   |  iTerm  |         |IntelliJ |         | Pocket  |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |Messages | Signal  | Discord | Finder  |         |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |  Teams  | Vivaldi |  Brave  |   | Notion  | Spotify |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
+ */
+[_APPS] =  LAYOUT( \
+     _______,  _______,  _______,  _______,  _______,  TODOIST,     TERMINAL,  _______, INTELLIJ,  _______,   POCKET,  _______, \
+     _______, MESSAGES,   SIGNAL,  DISCORD,   FINDER,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  VIVALDI,    BRAVE,       NOTION,  SPOTIFY,  _______,  _______,  _______,  _______, \
      _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
 /* Arrow (Hold Escape)
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |         |    F1   |    F2   |    F3   |    F4   |         |   | DelEmail|    Up   | ArcEmail|         |         |         |
+ * |         |         |         |         |         |         |   | DelEmail|    Up   | ArcEmail|         |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |    F5   |    F6   |    F7   |    F8   |         |   |   Home  |   Left  |   Down  |  Right  |         |   MENU  |
+ * |         |DelWdLeft|Backspace| Delete  | DelWrd  |         |   |Left1Word|  Left   |  Down   |  Right  |Rght1Word|         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |    F9   |   F10   |   F11   |   F12   |         |   |   End   |         |         |         |         |         |
+ * |         |         |         |         |         |  Home   |   |   End   |Full Left|         |FullRight|         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |         |         |         |         |         |         |   |         |         |         |Zoom Out | Zoom In |         |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 
 [_ARROW] = LAYOUT( \
-     _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,  _______,      _______,  DELMAIL,    KC_UP,  ARCMAIL,  _______,  _______, \
-     _______,    KC_F5,    KC_F6,    KC_F7,    KC_F8,  _______,      KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  KC_MENU, \
-     _______,    KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______,       KC_END,  _______,  _______,  _______,  _______,  _______, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  DEL_EML,    KC_UP,  ARC_EML,  _______,  _______, \
+     _______,  BSPCWRD,  KC_BSPC,   KC_DEL,  DELWORD,  _______,      ALTLEFT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ALTRGHT,  _______, \
+     _______,  _______,  _______,  _______,  _______,  KC_HOME,       KC_END,  GUILEFT,  _______,  GUIRGHT,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,   ZOOMIN,  ZOOMOUT,  _______  \
 ),
 
 /* IntelliJ (Fn)
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |         |  Close  |         |   End   |  Refctr | Go2 Test|   |         |  Usages |  Prev_M |  Outlin |         |         |
+ * |         |  Close  |         |Stop Run |Refactor |GoTo Test|   |         | Usages  |PrevMethd| Outline |  Str1   |  Str2   |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |  HidWin |  RunMnu |  Symbol |  DbugIt |  Search |   Git   |   |  Hierar |   Prev  |  Next_M |   Next  |  FntRes |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
@@ -253,10 +291,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_INTJ] = LAYOUT( \
-     _______,    CLOSE,  _______,      END,  REFACTR,  GO2TEST,      _______,   USAGES,  PREVMTD,  OUTLINE,  _______,       PW, \
+     _______,    CLOSE,  _______,      END,  REFACTR,  GO2TEST,      _______,   USAGES,  PREVMTD,  OUTLINE,  STRING1,  STRING2, \
      HIDWINS,  RUNTGTS,   SYMBOL,    DEBUG,     FIND,      GIT,      HIERARC,     BACK,  NEXTMTD,  FORWARD,  FONTRES,  _______, \
      _______,    RERUN,  EXECUTE,   CREATE,  EXT_VAR,  MOREGIT,      FNDFILE,     MENU,  FONT_DN,  FONT_UP,     INFO,  _______, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  EXPLEFT,  EXPDOWN,   EXP_UP,  EXPRGHT  \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  MTWLEFT,  MTWDOWN,   MTW_UP,  MTWRGHT  \
 ),
 
 /* Mods
@@ -267,31 +305,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |         |  Gui+1  |  Gui+2  |  Gui+3  |  Gui+4  |  Gui+5  |   |  Gui+6  |  Gui+7  |  Gui+8  |  Gui+9  |  Gui+0  |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |         |         |         |         |         |Add To Do|   |         |         |         |         |         |         |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_MODS] =  LAYOUT( \
      _______,    ALT_1,    ALT_2,    ALT_3,    ALT_4,    ALT_5,        ALT_6,    ALT_7,    ALT_8,    ALT_9,    ALT_0,  _______, \
      _______,    CTL_1,    CTL_2,    CTL_3,    CTL_4,    CTL_5,        CTL_6,    CTL_7,    CTL_8,    CTL_9,    CTL_0,  _______, \
      _______,    GUI_1,    GUI_2,    GUI_3,    GUI_4,    GUI_5,        GUI_6,    GUI_7,    GUI_8,    GUI_9,    GUI_0,  _______, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
+     _______,  _______,  _______,  _______,  _______,  ADDTODO,      _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
-/* Divvy
+/* Todoist
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
- * |         |         |         |         |         |         |   |         |    <^   |    ^^   |    ^>   |         |         |
+ * |         | @15mins | @2hours | @30mins | @4hours | @5mins  |   | @60mins |  Today  |Tomorrow | Weekend |Next Week|         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |    <    |  FulScr |    >    |         |         |
+ * |         |Priority1|Priority2|Priority3|Priority4|         |   |         |         |         |         |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |         |         |         |         |         |         |   |         |    <v   |    vv   |    v>   |         |         |
+ * |         |RespondTo|         |         |         |         |   |         |         |         |         |         |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |         |         |         |         |         |         |   |         |         |         |         |         |         |
  * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
-[_DIVVY] =  LAYOUT( \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  TOPLEFT,  TOPHALF,  TOPRGHT,  _______,  _______, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  LFTHALF,  FULLSCR,  RGTHALF,  _______,  _______, \
-     _______,  _______,  _______,  _______,  _______,  _______,      _______,  BOTLEFT,  BOTHALF,  BOTRGHT,  _______,  _______, \
+[_TODOIST] =  LAYOUT( \
+     _______,  T15MINS,    T2HRS,  T30MINS,    T4HRS,   T5MINS,      T60MINS,    TODAY, TOMORROW,  WEEKEND, NEXTWEEK,  _______, \
+     _______,       P1,       P2,       P3,       P4,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  RESPOND,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
      _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 )
 
@@ -306,11 +344,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case PW:
-            if (record->event.pressed) {
-                SEND_STRING("PW_PLACEHOLDER");
-            }
-            return false;
         case LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);
@@ -336,150 +369,256 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
             }
             return false;
-        case DELMAIL:
+        case STRING1:
+            if (record->event.pressed) {
+                SEND_STRING("STRING1_PLACEHOLDER");
+            }
+            return false;
+        case STRING2:
+            if (record->event.pressed) {
+                SEND_STRING("STRING2_PLACEHOLDER");
+            }
+            return false;
+        case DEL_EML:
             if (record->event.pressed) {
                 SEND_STRING("x#");
             }
             return false;
-        case ARCMAIL:
+        case ARC_EML:
             if (record->event.pressed) {
                 SEND_STRING("xE");
             }
             return false;
-        case SLACK:
+        case BRAVE:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("slack"
-                SS_TAP(X_ENTER));
+                SEND_STRING("brave");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case CALENDR:
+        case DISCORD:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("calendar"
-                SS_TAP(X_ENTER));
+                SEND_STRING("discord");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case FIREFOX:
+        case FINDER:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("firefox"
-                SS_TAP(X_ENTER));
+                SEND_STRING("finder");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case MAIL:
+        case INTELLIJ:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("mail"
-                SS_TAP(X_ENTER));
+                SEND_STRING("intellij");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case TODOIST:
+        case MESSAGES:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("todoist-native"
-                SS_TAP(X_ENTER));
+                SEND_STRING("messages");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case CHROME:
+        case NOTION:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("chrome"
-                SS_TAP(X_ENTER));
+                SEND_STRING("notion");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
-        case UNANET:
+        case POCKET:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("unanet"
-                SS_TAP(X_ENTER));
+                SEND_STRING("pocket");
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case SIGNAL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("signal");
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
         case SPOTIFY:
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
                 _delay_ms(200);
-                SEND_STRING("spotify"
-                SS_TAP(X_ENTER));
-            }
-            return false;
-        case ITERM:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-                _delay_ms(200);
-                SEND_STRING("iterm"
-                SS_TAP(X_ENTER));
-            }
-            return false;
-        case ONENOTE:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-                _delay_ms(200);
-                SEND_STRING("onenote"
-                SS_TAP(X_ENTER));
-            }
-            return false;
-        case INTELIJ:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-                _delay_ms(200);
-                SEND_STRING("intellij"
-                SS_TAP(X_ENTER));
-            }
-            return false;
-        case VMWARE:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-                _delay_ms(200);
-                SEND_STRING("vmware"
-                SS_TAP(X_ENTER));
-            }
-            return false;
-        case CLSVIEW:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_F10));
-                _delay_ms(100);
-                SEND_STRING(SS_TAP(X_RIGHT));
-                _delay_ms(100);
-                SEND_STRING(SS_TAP(X_RIGHT));
-                _delay_ms(100);
-                SEND_STRING(SS_TAP(X_RIGHT));
-                _delay_ms(100);
-                SEND_STRING(SS_TAP(X_DOWN));
-                _delay_ms(100);
-                SEND_STRING(SS_TAP(X_DOWN));
-                _delay_ms(100);
+                SEND_STRING("spotify");
                 SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case TERMINAL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("terminal");
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case TODOIST:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("opera");
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case VIVALDI:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("vivaldi");
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case T15MINS:
+            if (record->event.pressed) {
+                SEND_STRING("@15mins");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case T2HRS:
+            if (record->event.pressed) {
+                SEND_STRING("@2hours");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case T30MINS:
+            if (record->event.pressed) {
+                SEND_STRING("@30mins");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case T4HRS:
+            if (record->event.pressed) {
+                SEND_STRING("@4hours");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case T5MINS:
+            if (record->event.pressed) {
+                SEND_STRING("@5mins");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case T60MINS:
+            if (record->event.pressed) {
+                SEND_STRING("@60mins");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case TODAY:
+            if (record->event.pressed) {
+                SEND_STRING("today");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case TOMORROW:
+            if (record->event.pressed) {
+                SEND_STRING("tomorrow");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case WEEKEND:
+            if (record->event.pressed) {
+                SEND_STRING("this weekend");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case NEXTWEEK:
+            if (record->event.pressed) {
+                SEND_STRING("next week");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case P1:
+            if (record->event.pressed) {
+                SEND_STRING("!!1");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case P2:
+            if (record->event.pressed) {
+                SEND_STRING("!!2");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case P3:
+            if (record->event.pressed) {
+                SEND_STRING("!!3");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case P4:
+            if (record->event.pressed) {
+                SEND_STRING("!!4");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+            }
+            return false;
+        case RESPOND:
+            if (record->event.pressed) {
+                SEND_STRING("@15mins");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+                SEND_STRING("@communication");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+                SEND_STRING("!!1");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+                SEND_STRING("today");
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_SPACE));
+                SEND_STRING("Respond to ");
             }
             return false;
     }
     return true;
 }
 
-/* Layer Name
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
- */
 
-/*
-[_LAYER] =  LAYOUT( \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
-)
-*/
+/* Layer Name
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
+ */
+/*[_LAYER] =  LAYOUT( \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
+)*/
