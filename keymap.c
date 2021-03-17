@@ -111,27 +111,27 @@ extern keymap_config_t keymap_config;
 
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-  PW,
-  MODS,
-  DELMAIL,
-  ARCMAIL,
-  CALENDR,
-  CHROME,
-  FIREFOX,
-  INTELIJ,
-  ITERM,
-  MAIL,
-  ONENOTE,
-  SLACK,
-  SPOTIFY,
-  TODOIST,
-  UNANET,
-  VMWARE,
-  CLSVIEW
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    ADJUST,
+    PW,
+    MODS,
+    DELMAIL,
+    ARCMAIL,
+    CALENDR,
+    CHROME,
+    FIREFOX,
+    INTELIJ,
+    ITERM,
+    MAIL,
+    ONENOTE,
+    SLACK,
+    SPOTIFY,
+    TODOIST,
+    UNANET,
+    VMWARE,
+    CLSVIEW
 };
 
 // Fillers to make layering more clear
@@ -145,317 +145,332 @@ enum custom_keycodes {
 #define D_DIVVY LT(MO(_DIVVY), KC_D)
 #define MODKEYS LT(MODS, KC_DEL)
 
+// @formatter:off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |  Tab   |   Q    |   W    |   E    |   R    |   T    |      |   Y    |   U    |   I    |   O    |   P    |  Bksp  |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |  Esc   |   A    |   S    |   D    |   F    |   G    |      |   H    |   J    |   K    |   L    |   ;    |   "    |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * | Shift  |   Z    |   X    |   C    |   V    |   B    |      |   N    |   M    |   ,    |   .    |   /    | Enter  |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |IntelliJ|  Ctrl  |  Alt   |  GUI   | Lower  | Space  |      |  Mods  | Raise  |  Left  |  Down  |   Up   | Right  |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |   Tab   |    Q    |    W    |    E    |    R    |    T    |   |    Y    |    U    |    I    |    O    |    P    |   Bksp  |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |   Esc   |    A    |    S    |    D    |    F    |    G    |   |    H    |    J    |    K    |    L    |    ;    |    "    |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |  Shift  |    Z    |    X    |    C    |    V    |    B    |   |    N    |    M    |    ,    |    .    |    /    |  Enter  |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * | IntelliJ|   Ctrl  |   Alt   |   GUI   |  Lower  |  Space  |   |   Mods  |  Raise  |   Left  |   Down  |    Up   |  Right  |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 
 [_QWERTY] = LAYOUT( \
-     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC, \
-     ESCAPE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, \
-    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT, \
-       INTJ, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,        MODKEYS,   RAISE, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT  \
+      KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC, \
+      ESCAPE,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,         KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT, \
+     KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,         KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,   KC_ENT, \
+        INTJ,  KC_LCTL,  KC_LALT,  KC_LGUI,    LOWER,   KC_SPC,      MODKEYS,    RAISE,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT  \
 ),
 
 /* Lower
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |   ~    |   !    |   @    |   #    |   $    |   %    |      |    ^   |   &    |   *    |   (    |   )    |  Del   |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |  Del   |        |        |        |        |        |      |        |   _    |   +    |   {    |   }    |   |    |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |  Play  |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * | Reset  |        |        |        |        |        |      |        |        |PrvTrack|VolumeDn|VolumeUp|NxtTrack|
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |    ~    |    !    |    @    |    #    |    $    |    %    |   |     ^   |    &    |    *    |    (    |    )    |   Del   |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |   Del   |         |         |         |         |         |   |         |    _    |    +    |    {    |    }    |    |    |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |   Play  |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |  Reset  |         |         |         |         |         |   |         |         | PrvTrack| VolumeDn| VolumeUp| NxtTrack|
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_LOWER] = LAYOUT( \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL, \
-     KC_DEL, _______, _______, _______, _______, _______,        _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, KC_MPLY, \
-      RESET, _______, _______, _______, _______, _______,        _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT  \
+     KC_TILD,  KC_EXLM,    KC_AT,  KC_HASH,   KC_DLR,  KC_PERC,      KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,   KC_DEL, \
+      KC_DEL,  _______,  _______,  _______,  _______,  _______,      _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  KC_MPLY, \
+       RESET,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  KC_MPRV,  KC_VOLD,  KC_VOLU,  KC_MNXT  \
 ),
 
 /* Raise
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |   `    |   1    |   2    |   3    |   4    |   5    |      |   6    |   7    |   8    |   9    |   0    |  Del   |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |  Del   |        |        |        |        |        |      |        |   -    |   =    |   [    |   ]    |  \     |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        | Reset  |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |    `    |    1    |    2    |    3    |    4    |    5    |   |    6    |    7    |    8    |    9    |    0    |   Del   |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |   Del   |         |         |         |         |         |   |         |    -    |    =    |    [    |    ]    |   \     |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |  Reset  |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_RAISE] = LAYOUT( \
-     KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL, \
-     KC_DEL, _______, _______, _______, _______, _______,        _______, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______,   RESET  \
+      KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,         KC_6,     KC_7,     KC_8,     KC_9,     KC_0,   KC_DEL, \
+      KC_DEL,  _______,  _______,  _______,  _______,  _______,      _______,  KC_MINS,   KC_EQL,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,    RESET  \
 ),
 
 /* Adjust (Lower + Raise)
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        | Reset  |        |  Mail  |        |Todoist |      | iTerm  | Unanet |IntelliJ|OneNote |        |  Del   |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        | Slack  |        |Firefox | Chrome |      |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |Calendar| VMWare |        |      |        |Spotify |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |  Reset  |         |   Mail  |         | Todoist |   |  iTerm  |  Unanet | IntelliJ| OneNote |         |   Del   |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |  Slack  |         | Firefox |  Chrome |   |         |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         | Calendar|  VMWare |         |   |         | Spotify |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT( \
-    _______,   RESET, _______,    MAIL, _______, TODOIST,          ITERM,  UNANET, INTELIJ, ONENOTE, _______,  KC_DEL, \
-    _______, _______,   SLACK, _______, FIREFOX,  CHROME,        _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, CALENDR,  VMWARE, _______,        _______, SPOTIFY, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+     _______,    RESET,  _______,     MAIL,  _______,  TODOIST,        ITERM,   UNANET,  INTELIJ,  ONENOTE,  _______,   KC_DEL, \
+     _______,  _______,    SLACK,  _______,  FIREFOX,   CHROME,      _______,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  CALENDR,   VMWARE,  _______,      _______,  SPOTIFY,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
 /* Arrow (Hold Escape)
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        |   F1   |   F2   |   F3   |   F4   |        |      |DelEmail|   Up   |ArcEmail|        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |   F5   |   F6   |   F7   |   F8   |        |      |  Home  |  Left  |  Down  | Right  |        |  MENU  |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |   F9   |  F10   |  F11   |  F12   |        |      |  End   |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |    F1   |    F2   |    F3   |    F4   |         |   | DelEmail|    Up   | ArcEmail|         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |    F5   |    F6   |    F7   |    F8   |         |   |   Home  |   Left  |   Down  |  Right  |         |   MENU  |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |    F9   |   F10   |   F11   |   F12   |         |   |   End   |         |         |         |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 
 [_ARROW] = LAYOUT( \
-    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______,        _______, DELMAIL,   KC_UP, ARCMAIL, _______, _______, \
-    _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______,        KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MENU, \
-    _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______,         KC_END, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+     _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,  _______,      _______,  DELMAIL,    KC_UP,  ARCMAIL,  _______,  _______, \
+     _______,    KC_F5,    KC_F6,    KC_F7,    KC_F8,  _______,      KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  KC_MENU, \
+     _______,    KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______,       KC_END,  _______,  _______,  _______,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
 /* IntelliJ (Fn)
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        | Close  |        |  End   | Refctr |Go2 Test|      |        | Usages | Prev_M | Outlin |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * | HidWin | RunMnu | Symbol | DbugIt | Search |  Git   |      | Hierar |  Prev  | Next_M |  Next  | FntRes |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        | ReRun  | Run It | Create |ExtctVar|More Git|      |  File  |  Menu  | Font-  | Font+  |  Info  |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |Exp Left|Exp Down| Exp Up |ExpRight|
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |  Close  |         |   End   |  Refctr | Go2 Test|   |         |  Usages |  Prev_M |  Outlin |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |  HidWin |  RunMnu |  Symbol |  DbugIt |  Search |   Git   |   |  Hierar |   Prev  |  Next_M |   Next  |  FntRes |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |  ReRun  |  Run It |  Create | ExtctVar| More Git|   |   File  |   Menu  |  Font-  |  Font+  |   Info  |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         | Exp Left| Exp Down|  Exp Up | ExpRight|
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 
 [_INTJ] = LAYOUT( \
-    _______,   CLOSE, _______,     END, REFACTR, GO2TEST,        _______,  USAGES, PREVMTD, OUTLINE, _______,      PW, \
-    HIDWINS, RUNTGTS,  SYMBOL,   DEBUG,    FIND,     GIT,        HIERARC,    BACK, NEXTMTD, FORWARD, FONTRES, _______, \
-    _______,   RERUN, EXECUTE,  CREATE, EXT_VAR, MOREGIT,        FNDFILE,    MENU, FONT_DN, FONT_UP,    INFO, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, EXPLEFT, EXPDOWN,  EXP_UP, EXPRGHT  \
+     _______,    CLOSE,  _______,      END,  REFACTR,  GO2TEST,      _______,   USAGES,  PREVMTD,  OUTLINE,  _______,       PW, \
+     HIDWINS,  RUNTGTS,   SYMBOL,    DEBUG,     FIND,      GIT,      HIERARC,     BACK,  NEXTMTD,  FORWARD,  FONTRES,  _______, \
+     _______,    RERUN,  EXECUTE,   CREATE,  EXT_VAR,  MOREGIT,      FNDFILE,     MENU,  FONT_DN,  FONT_UP,     INFO,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  EXPLEFT,  EXPDOWN,   EXP_UP,  EXPRGHT  \
 ),
 
 /* Mods
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        | Alt+1  | Alt+2  | Alt+3  | Alt+4  | Alt+5  |      | Alt+6  | Alt+7  | Alt+8  | Alt+9  | Alt+0  |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        | Ctrl+1 | Ctrl+2 | Ctrl+3 | Ctrl+4 | Ctrl+5 |      | Ctrl+6 | Ctrl+7 | Ctrl+8 | Ctrl+9 | Ctrl+0 |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        | Gui+1  | Gui+2  | Gui+3  | Gui+4  | Gui+5  |      | Gui+6  | Gui+7  | Gui+8  | Gui+9  | Gui+0  |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |  Alt+1  |  Alt+2  |  Alt+3  |  Alt+4  |  Alt+5  |   |  Alt+6  |  Alt+7  |  Alt+8  |  Alt+9  |  Alt+0  |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |  Ctrl+1 |  Ctrl+2 |  Ctrl+3 |  Ctrl+4 |  Ctrl+5 |   |  Ctrl+6 |  Ctrl+7 |  Ctrl+8 |  Ctrl+9 |  Ctrl+0 |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |  Gui+1  |  Gui+2  |  Gui+3  |  Gui+4  |  Gui+5  |   |  Gui+6  |  Gui+7  |  Gui+8  |  Gui+9  |  Gui+0  |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_MODS] =  LAYOUT( \
-    _______,   ALT_1,   ALT_2,   ALT_3,   ALT_4,   ALT_5,          ALT_6,   ALT_7,   ALT_8,   ALT_9,   ALT_0, _______, \
-    _______,   CTL_1,   CTL_2,   CTL_3,   CTL_4,   CTL_5,          CTL_6,   CTL_7,   CTL_8,   CTL_9,   CTL_0, _______, \
-    _______,   GUI_1,   GUI_2,   GUI_3,   GUI_4,   GUI_5,          GUI_6,   GUI_7,   GUI_8,   GUI_9,   GUI_0, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+     _______,    ALT_1,    ALT_2,    ALT_3,    ALT_4,    ALT_5,        ALT_6,    ALT_7,    ALT_8,    ALT_9,    ALT_0,  _______, \
+     _______,    CTL_1,    CTL_2,    CTL_3,    CTL_4,    CTL_5,        CTL_6,    CTL_7,    CTL_8,    CTL_9,    CTL_0,  _______, \
+     _______,    GUI_1,    GUI_2,    GUI_3,    GUI_4,    GUI_5,        GUI_6,    GUI_7,    GUI_8,    GUI_9,    GUI_0,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
 /* Divvy
- * ,-----------------------------------------------------.      ,-----------------------------------------------------.
- * |        |        |        |        |        |        |      |        |   <^   |   ^^   |   ^>   |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |   <    | FulScr |   >    |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |   <v   |   vv   |   v>   |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * `-----------------------------------------------------'      `-----------------------------------------------------'
+ * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
+ * |         |         |         |         |         |         |   |         |    <^   |    ^^   |    ^>   |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |    <    |  FulScr |    >    |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |    <v   |    vv   |    v>   |         |         |
+ * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
+ * |         |         |         |         |         |         |   |         |         |         |         |         |         |
+ * `-----------------------------------------------------------'   `-----------------------------------------------------------'
  */
 [_DIVVY] =  LAYOUT( \
-    _______, _______, _______, _______, _______, _______,        _______, TOPLEFT, TOPHALF, TOPRGHT, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, LFTHALF, FULLSCR, RGTHALF, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, BOTLEFT, BOTHALF, BOTRGHT, _______, _______, \
-    _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______  \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  TOPLEFT,  TOPHALF,  TOPRGHT,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  LFTHALF,  FULLSCR,  RGTHALF,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  BOTLEFT,  BOTHALF,  BOTRGHT,  _______,  _______, \
+     _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  _______,  _______,  _______,  _______  \
 )
 
 };
 
+// @formatter:on
+
 void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+    eeconfig_update_default_layer(default_layer);
+    default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-      case PW:
-        if (record->event.pressed) {
-          SEND_STRING("PW_PLACEHOLDER");
-        }
-        return false;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-    case DELMAIL:
-      if (record->event.pressed) {
-        SEND_STRING("x#");
-      }
-      return false;
-    case ARCMAIL:
-      if (record->event.pressed) {
-        SEND_STRING("xE");
-      }
-      return false;
-    case SLACK:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("slack" SS_TAP(X_ENTER));
-      }
-          return false;
-    case CALENDR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("calendar" SS_TAP(X_ENTER));
-      }
-          return false;
-    case FIREFOX:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("firefox" SS_TAP(X_ENTER));
-      }
-          return false;
-    case MAIL:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("mail" SS_TAP(X_ENTER));
-      }
-          return false;
-    case TODOIST:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("todoist-native" SS_TAP(X_ENTER));
-      }
-          return false;
-    case CHROME:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("chrome" SS_TAP(X_ENTER));
-      }
-          return false;
-    case UNANET:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("unanet" SS_TAP(X_ENTER));
-      }
-          return false;
-    case SPOTIFY:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("spotify" SS_TAP(X_ENTER));
-      }
-          return false;
-    case ITERM:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("iterm" SS_TAP(X_ENTER));
-      }
-          return false;
-    case ONENOTE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("onenote" SS_TAP(X_ENTER));
-      }
-          return false;
-    case INTELIJ:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("intellij" SS_TAP(X_ENTER));
-      }
-          return false;
-    case VMWARE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
-        _delay_ms(200);
-        SEND_STRING("vmware" SS_TAP(X_ENTER));
-      }
-          return false;
-    case CLSVIEW:
-        if (record->event.pressed) {
-          SEND_STRING(SS_TAP(X_F10));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_RIGHT));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_RIGHT));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_RIGHT));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_DOWN));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_DOWN));
-          _delay_ms(100);
-          SEND_STRING(SS_TAP(X_ENTER));
-        }
-        return false;
-  }
-  return true;
+    switch (keycode) {
+        case PW:
+            if (record->event.pressed) {
+                SEND_STRING("PW_PLACEHOLDER");
+            }
+            return false;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+        case ADJUST:
+            if (record->event.pressed) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
+            }
+            return false;
+        case DELMAIL:
+            if (record->event.pressed) {
+                SEND_STRING("x#");
+            }
+            return false;
+        case ARCMAIL:
+            if (record->event.pressed) {
+                SEND_STRING("xE");
+            }
+            return false;
+        case SLACK:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("slack"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case CALENDR:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("calendar"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case FIREFOX:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("firefox"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case MAIL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("mail"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case TODOIST:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("todoist-native"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case CHROME:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("chrome"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case UNANET:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("unanet"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case SPOTIFY:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("spotify"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case ITERM:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("iterm"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case ONENOTE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("onenote"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case INTELIJ:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("intellij"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case VMWARE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+                _delay_ms(200);
+                SEND_STRING("vmware"
+                SS_TAP(X_ENTER));
+            }
+            return false;
+        case CLSVIEW:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_F10));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_RIGHT));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_RIGHT));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_RIGHT));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_DOWN));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_DOWN));
+                _delay_ms(100);
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+    }
+    return true;
 }
 
 /* Layer Name
  * ,-----------------------------------------------------.      ,-----------------------------------------------------.
  * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |      |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
+ * |---------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |      |        |        |        |        |        |        |
  * `-----------------------------------------------------'      `-----------------------------------------------------'
  */
