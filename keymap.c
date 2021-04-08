@@ -65,6 +65,7 @@ extern keymap_config_t keymap_config;
 #define MTWDOWN LCTL(LSFT(KC_DOWN))
 #define MTW_UP LCTL(LSFT(KC_UP))
 #define MTWRGHT LCTL(LSFT(KC_RGHT))
+#define MUTEBKPT LCTL(LALT(LSFT(KC_QUOT)))
 
 // MacOS Shortcuts
 #define ALFRED LALT(KC_SPACE)
@@ -282,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------.   ,-----------------------------------------------------------.
  * |         |  Close  |         |Stop Run |Refactor |GoTo Test|   |         | Usages  |PrevMethd| Outline |  Str1   |  Str2   |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
- * |  HidWin |  RunMnu |  Symbol |  DbugIt |  Search |   Git   |   |  Hierar |   Prev  |  Next_M |   Next  |  FntRes |         |
+ * |  HidWin |  RunMnu |  Symbol |  DbugIt |  Search |   Git   |   |  Hierar |   Prev  |  Next_M |   Next  |  FntRes |MuteBrkPt|
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
  * |         |  ReRun  |  Run It |  Create | ExtctVar| More Git|   |   File  |   Menu  |  Font-  |  Font+  |   Info  |         |
  * |---------+---------+---------+---------+---------+---------|   |---------+---------+---------+---------+---------+---------|
@@ -292,7 +293,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_INTJ] = LAYOUT( \
      _______,    CLOSE,  _______,      END,  REFACTR,  GO2TEST,      _______,   USAGES,  PREVMTD,  OUTLINE,  STRING1,  STRING2, \
-     HIDWINS,  RUNTGTS,   SYMBOL,    DEBUG,     FIND,      GIT,      HIERARC,     BACK,  NEXTMTD,  FORWARD,  FONTRES,  _______, \
+     HIDWINS,  RUNTGTS,   SYMBOL,    DEBUG,     FIND,      GIT,      HIERARC,     BACK,  NEXTMTD,  FORWARD,  FONTRES, MUTEBKPT, \
      _______,    RERUN,  EXECUTE,   CREATE,  EXT_VAR,  MOREGIT,      FNDFILE,     MENU,  FONT_DN,  FONT_UP,     INFO,  _______, \
      _______,  _______,  _______,  _______,  _______,  _______,      _______,  _______,  MTWLEFT,  MTWDOWN,   MTW_UP,  MTWRGHT  \
 ),
