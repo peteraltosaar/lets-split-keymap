@@ -69,7 +69,7 @@ extern keymap_config_t keymap_config;
 
 // MacOS Shortcuts
 #define ALFRED LALT(KC_SPACE)
-#define ZOOMIN LGUI(KC_PLUS)
+#define ZOOMIN LGUI(KC_EQL)
 #define ZOOMOUT LGUI(KC_MINS)
 #define BSPCWRD LALT(KC_BSPC)
 #define DELWORD LALT(KC_DEL)
